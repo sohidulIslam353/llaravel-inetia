@@ -12,13 +12,13 @@ import { Link } from '@inertiajs/vue3';
           </div>
           <ul class="sidebar-menu">
             <li class="menu-header">Main</li>
-            <li class="dropdown active">
+            <li class="dropdown" :class="{'d-block':is_active == 'dashboard'}">
               <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
             </li>
             <li class="dropdown">
-              <a href="#" class="menu-toggle nav-link has-dropdown"><i
+              <a href="#" class="menu-toggle nav-link has-dropdown" :class="{'active':is_active == 'widgets'}" @click="openDropdown()"><i
                   data-feather="briefcase"></i><span>Widgets</span></a>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu" :style="is_active == 'widgets' || is_dropdown?'display: block; height:70px;overflow: hidden;transition: all .5s ease 0s;':'height:0px;overflow: hidden;transition: all .5s ease 0s;'">
                 <li><a class="nav-link" href="widget-chart.html">Chart Widgets</a></li>
                 <li><a class="nav-link" href="widget-data.html">Data Widgets</a></li>
               </ul>
@@ -215,3 +215,30 @@ import { Link } from '@inertiajs/vue3';
 
 
 </template>
+
+<script>
+export default {
+  props: [],
+
+  data() {
+    return {
+      is_active: "",
+      is_dropdown: false
+    }
+  },
+
+  methods: {
+    openDropdown() {
+    
+      this.is_dropdown = !this.is_dropdown;
+    },
+  },
+
+  watch: {
+    is_active: function(value) {
+      // console.log('here', value);
+      return (this.is_active = value);
+    }
+  }
+}
+</script>
